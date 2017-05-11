@@ -61,8 +61,7 @@ module.exports = Object.keys(googleFonts).reduce((generatedObject, font) => {
         return generatedVariantObject;
     }, {});
 
-    // {400: 'AbhayaLibre-SemiBold'}
-
+    // {400i: "'ABeeZee-Italic', sans-serif"}
 
     let generateLocals = Object.keys(fontVariants).reduce((generatedLocalObject, variant)=> {
         
@@ -70,7 +69,7 @@ module.exports = Object.keys(googleFonts).reduce((generatedObject, font) => {
             
             let variantNumber = variant == 'italic' ? `${number}i` : number; // [100, 100i, 200, 200i]
 
-            generatedLocalObject[variantNumber] = fontVariants[variant][number]['local'].pop();
+            generatedLocalObject[variantNumber] = `${fontVariants[variant][number]['local'].pop()}, ${fontObject.category}`;
 
         });
 
@@ -79,14 +78,18 @@ module.exports = Object.keys(googleFonts).reduce((generatedObject, font) => {
 
 
 
-    let id = font.replace(/\s+/g, '-').toLowerCase();
+    let id     = font.replace(/\s+/g, '-').toLowerCase();
+    let type   = (['serif', 'sans-serif'].includes(fontObject.category)) ? `, ${fontObject.category}` : '';
+    let label  = (/\s/g.test(font))  ? `"${font}", ${fontObject.category}` : `${font}, ${fontObject.category}`;
+    let family = (/\s/g.test(font))  ? `"${font}"${type}` : `${font}${type}`;
 
     generatedObject[id] = {
-        label    : font,
+        label    : label.trim(),
+        family   : family.trim(),
         category : fontObject.category,
         subsets  : generateSubsets,
         variants : generateVariants,
-        locals    : generateLocals
+        locals   : generateLocals
     };
 
     return generatedObject;

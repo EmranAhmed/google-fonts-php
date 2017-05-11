@@ -4,6 +4,10 @@ const googleFonts = require('./index');
 // console.log(googleFonts);
 
 let tmpl = `<?php
+
+\/\/ Generate Google Fonts PHP Array
+\/\/ Generated from https://github.com/EmranAhmed/google-fonts-php
+
 return array(
 `;
 
@@ -13,6 +17,7 @@ for (let googleFont in googleFonts) {
   '${googleFont}' => array(
        'id'       => '${googleFont}',
        'label'    => '${googleFonts[googleFont].label}',
+       'family'   => '${googleFonts[googleFont].family}',
        'category' => '${googleFonts[googleFont].category}',
        'subsets'  => array(
 `;
@@ -39,7 +44,7 @@ for (let googleFont in googleFonts) {
 
 
 
-
+/**
     tmpl += `
        'locals'  => array(
 `;
@@ -51,7 +56,7 @@ for (let googleFont in googleFonts) {
 
     tmpl += `       ),`;
     // End of local array
-
+*/
 
 
     tmpl += `
