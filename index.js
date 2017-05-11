@@ -79,11 +79,24 @@ module.exports = Object.keys(googleFonts).reduce((generatedObject, font) => {
 
 
     let id     = font.replace(/\s+/g, '-').toLowerCase();
-    let type   = (['serif', 'sans-serif'].includes(fontObject.category)) ? `, ${fontObject.category}` : '';
-    let label  = (/\s/g.test(font))  ? `"${font}", ${fontObject.category}` : `${font}, ${fontObject.category}`;
-    let family = (/\s/g.test(font))  ? `"${font}"${type}` : `${font}${type}`;
+
+
+    let type   = '';
+    
+    if( ['serif', 'sans-serif'].includes(fontObject.category) ){
+        type = `, ${fontObject.category}`;
+    } else if(['handwriting', 'display'].includes(fontObject.category)){
+        type = `, cursive`;
+    } else if(['monospace'].includes(fontObject.category)){
+        type = `, monospace`;
+    }
+
+
+    let label  = (/\s/g.test(font))  ? `'${font}', ${fontObject.category}` : `${font}, ${fontObject.category}`;
+    let family = `${font}${type}`;
 
     generatedObject[id] = {
+        name     : font.trim(),
         label    : label.trim(),
         family   : family.trim(),
         category : fontObject.category,

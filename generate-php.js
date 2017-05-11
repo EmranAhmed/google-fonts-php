@@ -16,9 +16,10 @@ for (let googleFont in googleFonts) {
     tmpl += `
   '${googleFont}' => array(
        'id'       => '${googleFont}',
-       'label'    => '${googleFonts[googleFont].label}',
-       'family'   => '${googleFonts[googleFont].family}',
-       'category' => '${googleFonts[googleFont].category}',
+       'name'     => "${googleFonts[googleFont].name}",
+       'label'    => "${googleFonts[googleFont].label}",
+       'family'   => "${googleFonts[googleFont].family}",
+       'category' => "${googleFonts[googleFont].category}",
        'subsets'  => array(
 `;
 
