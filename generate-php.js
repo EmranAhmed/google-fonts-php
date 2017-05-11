@@ -11,7 +11,8 @@ for (let googleFont in googleFonts) {
 
     tmpl += `
   '${googleFont}' => array(
-       'label'    => '${googleFont}',
+       'id'       => '${googleFont}',
+       'label'    => '${googleFonts[googleFont].label}',
        'category' => '${googleFonts[googleFont].category}',
        'subsets'  => array(
 `;
@@ -22,6 +23,7 @@ for (let googleFont in googleFonts) {
     }
     tmpl += `       ),`;
     // End of subset array
+
 
     tmpl += `
        'variants'  => array(
@@ -35,6 +37,23 @@ for (let googleFont in googleFonts) {
     tmpl += `       ),`;
     // End of variant array
 
+
+
+
+    tmpl += `
+       'locals'  => array(
+`;
+
+    for (let local in googleFonts[googleFont].locals) {
+        tmpl += `           '${local}'  =>  "${googleFonts[googleFont].locals[local]}",
+`;
+    }
+
+    tmpl += `       ),`;
+    // End of local array
+
+
+
     tmpl += `
   ),
 `;
@@ -45,5 +64,7 @@ tmpl += `
 );`;
 
 fs.writeFile('google-fonts.php', tmpl, function () {
-    console.log('Google Fonts PHP Generated.');
+    console.log('');
+    console.log('🎉  Generated on file "google-fonts.php".');
+    console.log('');
 });

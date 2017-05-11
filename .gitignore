@@ -2,3 +2,5 @@
 /.idea
 *.php
 google-fonts.json
+.DS_Store
+.idea

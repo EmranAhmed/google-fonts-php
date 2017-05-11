@@ -61,11 +61,32 @@ module.exports = Object.keys(googleFonts).reduce((generatedObject, font) => {
         return generatedVariantObject;
     }, {});
 
-    generatedObject[font] = {
+    // {400: 'AbhayaLibre-SemiBold'}
+
+
+    let generateLocals = Object.keys(fontVariants).reduce((generatedLocalObject, variant)=> {
+        
+        Object.keys(fontVariants[variant]).map(number=> {
+            
+            let variantNumber = variant == 'italic' ? `${number}i` : number; // [100, 100i, 200, 200i]
+
+            generatedLocalObject[variantNumber] = fontVariants[variant][number]['local'].pop();
+
+        });
+
+        return generatedLocalObject;
+    }, {});
+
+
+
+    let id = font.replace(/\s+/g, '-').toLowerCase();
+
+    generatedObject[id] = {
         label    : font,
         category : fontObject.category,
         subsets  : generateSubsets,
-        variants : generateVariants
+        variants : generateVariants,
+        locals    : generateLocals
     };
 
     return generatedObject;

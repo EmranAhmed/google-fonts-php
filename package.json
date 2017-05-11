@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "latest"  : "node download-fonts.js",
+    "generate": "node generate-php.js",
+    "start"   : "npm run latest && npm run generate"
   },
   "keywords": [],
   "author": "",
